@@ -11,9 +11,13 @@
     "deploy": "git push heroku master"
   },
   "keywords": [
-    "express",
-    "boilerplate"
+    "moviedex API",
+    "AzaniaBG",
+    "movie search"
   ],
+  "engines": {
+    "node": "v12.16.2"
+  },
   "author": "ABG",
   "license": "ISC",
   "dependencies": {

@@ -17,7 +17,6 @@ app.use(morgan(morganOptions));
 app.use(cors());
 app.use(helmet());
 app.use(function validateBearerToken(req, res, next) {
-    console.log(`validateBearerToken middleware`);
 
     const bearerToken = req.get('Authorization');
     const authToken = process.env.API_TOKEN;
@@ -62,7 +61,6 @@ const handleGetAverageVotes = (req, res) => {
     if(avgVotes === NaN || avgVotes === null) {
         return res.status(400).send("Please provide a valid number.");
     }
-console.log(typeof avgVotes)
     let response = movies.filter(movie => avgVotes <= movie.avg_votes);
     res.json(response);
 }
@@ -76,7 +74,6 @@ app.use(function errorHandler(error, req, res, next) {
     if(NODE_ENV === 'production') {
         response = { error: { message: 'server error' } }
         } else {
-            console.log(error);
             response = { message: error.message, error }
         }
         res.status(500).json(response);
