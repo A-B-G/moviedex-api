@@ -12,6 +12,8 @@ const app = express();
 const morganOptions = (NODE_ENV === "production") 
     ? 'tiny'
     : 'common';
+const movieRouter = require('./router/movieRouter');
+
 
 app.use(morgan(morganOptions));
 app.use(cors());
@@ -64,7 +66,8 @@ const handleGetAverageVotes = (req, res) => {
     let response = movies.filter(movie => avgVotes <= movie.avg_votes);
     res.json(response);
 }
-app.get('/movie', handleGetMovies);
+// app.get('/movie', handleGetMovies);
+app.use('/movie', movieRouter);
 app.get('/genres', handleGetGenre);
 app.get('/country', handleGetCountry);
 app.get('/average-votes', handleGetAverageVotes);
@@ -72,7 +75,7 @@ app.get('/average-votes', handleGetAverageVotes);
 app.use(function errorHandler(error, req, res, next) {
     let response;
     if(NODE_ENV === 'production') {
-        response = { error: { message: 'server error' } }
+        response = { error: { message: 'Heck! We haz error.' } }
         } else {
             response = { message: error.message, error }
         }
