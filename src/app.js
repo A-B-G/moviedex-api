@@ -29,22 +29,7 @@ app.use(function validateBearerToken(req, res, next) {
 })
 const movies = require('./moviedex-api.json');
 
-const handleGetAverageVotes = (req, res) => {
-    let avgVotes = req.query.avg_votes;
-    avgVotes = parseFloat(avgVotes);
-    if(!avgVotes) {
-        return res.status(400).send("Please provide a number representing the average votes for a movie.");
-    }
-    if(avgVotes === NaN || avgVotes === null) {
-        return res.status(400).send("Please provide a valid number.");
-    }
-    let response = movies.filter(movie => avgVotes <= movie.avg_votes);
-    res.json(response);
-}
 app.get('/', movieRouter);
-app.use('/movie', movieRouter);
-app.get('/genres', movieRouter);
-app.get('/average-votes', handleGetAverageVotes);
 //set up error messages based on environment
 app.use(function errorHandler(error, req, res, next) {
     let response;
