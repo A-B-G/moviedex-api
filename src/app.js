@@ -29,7 +29,7 @@ app.use(function validateBearerToken(req, res, next) {
 })
 const movies = require('./moviedex-api.json');
 
-app.get('/', movieRouter);
+app.use('/', movieRouter);
 //set up error messages based on environment
 app.use(function errorHandler(error, req, res, next) {
     let response;
