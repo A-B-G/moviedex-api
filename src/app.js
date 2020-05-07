@@ -30,6 +30,8 @@ app.use(function validateBearerToken(req, res, next) {
 const movies = require('./moviedex-api.json');
 
 app.use('/', movieRouter);
+
+console.log(`this best work`);
 //set up error messages based on environment
 app.use(function errorHandler(error, req, res, next) {
     let response;
