@@ -29,19 +29,7 @@ app.use(function validateBearerToken(req, res, next) {
 })
 const movies = require('./moviedex-api.json');
 
-function handleGetGenre(req, res) {
-    const genres = movies.map(movie => movie.genre);
-    if(!genre) {
-        return res.status(400).send("Please provide a genre.")
-    }
-    const genre = req.query.genre;
-    if(!genre.toLowerCase().includes(genre.toLowerCase())) {
-        return res.send(`Valid genres are ${genres}`);
-    } 
-    let response = movies.filter(movie => genre.toLowerCase().includes(movie.genre.toLowerCase()))
-    res.json(response);
-    
-};
+
 function handleGetMovies(req, res) {
   let response = movies; 
     res.json(response);  
@@ -66,7 +54,7 @@ const handleGetAverageVotes = (req, res) => {
     let response = movies.filter(movie => avgVotes <= movie.avg_votes);
     res.json(response);
 }
-// app.get('/movie', handleGetMovies);
+app.get('/movie', handleGetMovies);
 app.use('/movie', movieRouter);
 app.get('/genres', handleGetGenre);
 app.get('/country', handleGetCountry);
