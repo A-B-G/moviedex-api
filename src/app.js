@@ -29,11 +29,6 @@ app.use(function validateBearerToken(req, res, next) {
 })
 const movies = require('./moviedex-api.json');
 
-
-function handleGetMovies(req, res) {
-  let response = movies; 
-    res.json(response);  
-};
 const handleGetCountry = (req, res) => {
     const country = req.query.country;
     if(!country || !country.toLowerCase().includes(movies.country.toLowerCase())) {
@@ -54,9 +49,9 @@ const handleGetAverageVotes = (req, res) => {
     let response = movies.filter(movie => avgVotes <= movie.avg_votes);
     res.json(response);
 }
-app.get('/movie', handleGetMovies);
+app.get('/', movieRouter);
 app.use('/movie', movieRouter);
-app.get('/genres', handleGetGenre);
+app.get('/genres', movieRouter);
 app.get('/country', handleGetCountry);
 app.get('/average-votes', handleGetAverageVotes);
 //set up error messages based on environment
