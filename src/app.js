@@ -29,14 +29,6 @@ app.use(function validateBearerToken(req, res, next) {
 })
 const movies = require('./moviedex-api.json');
 
-const handleGetCountry = (req, res) => {
-    const country = req.query.country;
-    if(!country || !country.toLowerCase().includes(movies.country.toLowerCase())) {
-        return res.status(400).send("Please provide a valid country.");
-    }
-    let response = movies.filter(movie => country.toLowerCase().includes(movie.country.toLowerCase()));
-    res.send(response);
-}
 const handleGetAverageVotes = (req, res) => {
     let avgVotes = req.query.avg_votes;
     avgVotes = parseFloat(avgVotes);
@@ -52,7 +44,6 @@ const handleGetAverageVotes = (req, res) => {
 app.get('/', movieRouter);
 app.use('/movie', movieRouter);
 app.get('/genres', movieRouter);
-app.get('/country', handleGetCountry);
 app.get('/average-votes', handleGetAverageVotes);
 //set up error messages based on environment
 app.use(function errorHandler(error, req, res, next) {

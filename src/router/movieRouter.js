@@ -2,8 +2,14 @@ const express = require('express');
 const movieRouter = express.Router();
 const movies = require('../moviedex-api.json');
 
-//define endpoint
-movieRouter.get('/genres', (req, res) => {
+//define endpoints
+movieRouter.route('/')
+    .get((req, res) => {
+    let { search = '' } = req.query; 
+    res.json(movies);
+});
+movieRouter.route('/genres')
+    .get((req, res) => {
     let genres = movies.map(movie => movie.genre); 
     const { genre } = req.params;
     if(!genre) {
@@ -15,9 +21,6 @@ movieRouter.get('/genres', (req, res) => {
     let response = movies.filter(movie => movie.genre.toLowerCase().includes(genre.toLowerCase()));
         res.json(response);  
 });
-movieRouter.get('/', (req, res) => {
-    
-        res.json(movies);
-});
 
-module.exports = movieRouter;
+
+module.exports = movieRouter
