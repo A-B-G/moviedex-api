@@ -1,5 +1,5 @@
 {
-  "name": "Moviedex_API",
+  "name": "moviedex-api",
   "version": "1.0.0",
   "description": "Search for movies.",
   "main": "index.js",
@@ -13,6 +13,7 @@
   "keywords": [
     "moviedex API",
     "AzaniaBG",
+    "Azania Baker-Garcia",
     "movie search"
   ],
   "engines": {

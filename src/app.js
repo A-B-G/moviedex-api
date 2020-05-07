@@ -12,6 +12,8 @@ const app = express();
 const morganOptions = (NODE_ENV === "production") 
     ? 'tiny'
     : 'common';
+const movieRouter = require('./router/movieRouter');
+
 
 app.use(morgan(morganOptions));
 app.use(cors());
@@ -27,52 +29,14 @@ app.use(function validateBearerToken(req, res, next) {
 })
 const movies = require('./moviedex-api.json');
 
-function handleGetGenre(req, res) {
-    const genres = movies.map(movie => movie.genre);
-    if(!genre) {
-        return res.status(400).send("Please provide a genre.")
-    }
-    const genre = req.query.genre;
-    if(!genre.toLowerCase().includes(genre.toLowerCase())) {
-        return res.send(`Valid genres are ${genres}`);
-    } 
-    let response = movies.filter(movie => genre.toLowerCase().includes(movie.genre.toLowerCase()))
-    res.json(response);
-    
-};
-function handleGetMovies(req, res) {
-  let response = movies; 
-    res.json(response);  
-};
-const handleGetCountry = (req, res) => {
-    const country = req.query.country;
-    if(!country || !country.toLowerCase().includes(movies.country.toLowerCase())) {
-        return res.status(400).send("Please provide a valid country.");
-    }
-    let response = movies.filter(movie => country.toLowerCase().includes(movie.country.toLowerCase()));
-    res.send(response);
-}
-const handleGetAverageVotes = (req, res) => {
-    let avgVotes = req.query.avg_votes;
-    avgVotes = parseFloat(avgVotes);
-    if(!avgVotes) {
-        return res.status(400).send("Please provide a number representing the average votes for a movie.");
-    }
-    if(avgVotes === NaN || avgVotes === null) {
-        return res.status(400).send("Please provide a valid number.");
-    }
-    let response = movies.filter(movie => avgVotes <= movie.avg_votes);
-    res.json(response);
-}
-app.get('/movie', handleGetMovies);
-app.get('/genres', handleGetGenre);
-app.get('/country', handleGetCountry);
-app.get('/average-votes', handleGetAverageVotes);
+app.use('/', movieRouter);
+
+console.log(`this best work`);
 //set up error messages based on environment
 app.use(function errorHandler(error, req, res, next) {
     let response;
     if(NODE_ENV === 'production') {
-        response = { error: { message: 'server error' } }
+        response = { error: { message: 'Heck! We haz error.' } }
         } else {
             response = { message: error.message, error }
         }
